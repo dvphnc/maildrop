@@ -65,11 +65,7 @@
             margin: 0 auto 1rem;
         }
 
-        .logo-icon svg {
-            width: 28px;
-            height: 28px;
-            fill: var(--black);
-        }
+        .logo-icon svg { width: 28px; height: 28px; fill: var(--black); }
 
         .logo-area h1 {
             font-family: 'DM Sans', sans-serif;
@@ -90,7 +86,7 @@
         .card {
             background: var(--dark2);
             border-radius: 16px;
-            padding: 2rem 2rem;
+            padding: 2rem;
             border: 1px solid rgba(255,255,255,0.06);
         }
 
@@ -154,10 +150,7 @@
             background: var(--dark4);
         }
 
-        input::placeholder, textarea::placeholder {
-            color: rgba(167,167,167,0.45);
-        }
-
+        input::placeholder, textarea::placeholder { color: rgba(167,167,167,0.45); }
         textarea { resize: none; min-height: 110px; line-height: 1.6; }
 
         .file-label {
@@ -174,21 +167,11 @@
             color: var(--muted);
         }
 
-        .file-label:hover {
-            border-color: var(--green);
-            color: var(--white);
-        }
-
+        .file-label:hover { border-color: var(--green); color: var(--white); }
         .file-label svg { flex-shrink: 0; }
-
         input[type="file"] { display: none; }
 
-        #file-name {
-            font-size: 0.8rem;
-            color: var(--green);
-            margin-top: 0.4rem;
-            min-height: 1.1rem;
-        }
+        #file-name { font-size: 0.8rem; color: var(--green); margin-top: 0.4rem; min-height: 1.1rem; }
 
         .btn {
             width: 100%;
@@ -216,12 +199,174 @@
             color: rgba(167,167,167,0.4);
             letter-spacing: 0.02em;
         }
+
+        /* ── MODAL OVERLAY ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: var(--dark2);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            animation: slideUp 0.25s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: var(--dark3);
+            border: none;
+            color: var(--muted);
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .modal-close:hover { background: var(--dark4); color: var(--white); }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .modal-sub {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .sandbox-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(255,196,57,0.1);
+            border: 1px solid rgba(255,196,57,0.3);
+            color: #FFC439;
+            border-radius: 50px;
+            padding: 0.25rem 0.65rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .sandbox-badge::before {
+            content: '';
+            width: 5px; height: 5px;
+            background: #FFC439;
+            border-radius: 50%;
+        }
+
+        .amount-wrap {
+            display: flex;
+            align-items: center;
+            background: var(--dark3);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 0.6rem;
+            transition: border-color 0.2s;
+        }
+
+        .amount-wrap:focus-within { border-color: var(--green); }
+
+        .amount-prefix {
+            padding: 0 0.75rem;
+            color: var(--muted);
+            font-size: 1rem;
+            font-weight: 500;
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+
+        input[type="number"] {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            padding: 0.75rem 1rem;
+            outline: none;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button { opacity: 0.3; }
+
+        .preset-btns {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .preset-btn {
+            flex: 1;
+            background: var(--dark3);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50px;
+            color: var(--muted);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.4rem 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover { border-color: var(--green); color: var(--green); }
+
+        .paypal-btn {
+            width: 100%;
+            background: #FFC439;
+            color: #003087;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 0.85rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .paypal-btn:hover { background: #f0b429; }
+        .paypal-btn:active { transform: scale(0.98); }
+        .paypal-btn svg { width: 18px; height: 18px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-
     <div class="logo-area">
         <div class="logo-icon">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -251,7 +396,7 @@
             </div>
         @endif
 
-        <form action="/send-email" method="POST" enctype="multipart/form-data">
+        <form id="emailForm" action="/send-email" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="field">
@@ -281,21 +426,102 @@
                 <textarea id="message" name="message" placeholder="Write something meaningful..." required>{{ old('message') }}</textarea>
             </div>
 
-            <button type="submit" class="btn">Send Email</button>
+            {{-- This button opens the PayPal modal instead of submitting directly --}}
+            <button type="button" class="btn" onclick="openPayPalModal()">Send Email</button>
         </form>
-
     </div>
 
     <p class="footer-note">Powered by Laravel &amp; Gmail SMTP</p>
+</div>
 
+
+{{-- ── PAYPAL MODAL ── --}}
+<div class="modal-overlay" id="paypalModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closePayPalModal()">✕</button>
+
+        <div class="sandbox-badge">Sandbox Mode</div>
+        <div class="modal-title">Complete Payment</div>
+        <div class="modal-sub">Pay via PayPal to send your email.</div>
+
+        <form id="paypalForm" action="/paypal/pay" method="POST" enctype="multipart/form-data">
+            @csrf
+            {{-- Hidden fields to carry email form data --}}
+            <input type="hidden" name="name" id="hidden_name">
+            <input type="hidden" name="email" id="hidden_email">
+            <input type="hidden" name="message" id="hidden_message">
+            {{-- File will be re-submitted through this hidden file input --}}
+            <input type="file" name="file" id="hidden_file" style="display:none;">
+            <label style="margin-bottom:0.45rem;">Amount (USD)</label>
+            <div class="amount-wrap">
+                <span class="amount-prefix">$</span>
+                <input type="number" name="amount" id="payAmount" value="10.00" min="1" step="0.01" required>
+            </div>
+            <div class="preset-btns">
+                <button type="button" class="preset-btn" onclick="setAmount(5)">$5</button>
+                <button type="button" class="preset-btn" onclick="setAmount(10)">$10</button>
+                <button type="button" class="preset-btn" onclick="setAmount(25)">$25</button>
+                <button type="button" class="preset-btn" onclick="setAmount(50)">$50</button>
+            </div>
+
+            <button type="submit" class="paypal-btn">
+                <svg viewBox="0 0 24 24" fill="#003087" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/>
+                </svg>
+                Pay with PayPal
+            </button>
+        </form>
+    </div>
 </div>
 
 <script>
+    // File input label update
     document.getElementById('file').addEventListener('change', function () {
         const name = this.files[0] ? this.files[0].name : '';
         document.getElementById('file-name').textContent = name;
         document.getElementById('file-text').textContent = name ? name : 'Choose a file to attach';
     });
+
+    function openPayPalModal() {
+        const form = document.getElementById('emailForm');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        // Copy email form values into PayPal modal hidden fields
+        document.getElementById('hidden_name').value    = document.getElementById('name').value;
+        document.getElementById('hidden_email').value   = document.getElementById('email').value;
+        document.getElementById('hidden_message').value = document.getElementById('message').value;
+
+        // Transfer file to PayPal form
+        const fileInput = document.getElementById('file');
+        const hiddenFile = document.getElementById('hidden_file');
+        if (fileInput.files.length > 0) {
+            const dt = new DataTransfer();
+            dt.items.add(fileInput.files[0]);
+            hiddenFile.files = dt.files;
+        }
+
+        document.getElementById('paypalModal').classList.add('active');
+    }
+
+    function closePayPalModal() {
+        document.getElementById('paypalModal').classList.remove('active');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('paypalModal').addEventListener('click', function(e) {
+        if (e.target === this) closePayPalModal();
+    });
+
+    function setAmount(val) {
+        document.getElementById('payAmount').value = val.toFixed(2);
+    }
+
+    // Auto-open modal if payment was just completed (success flash)
+    @if(session('paid'))
+        document.getElementById('emailForm').submit();
+    @endif
 </script>
 
 </body>
