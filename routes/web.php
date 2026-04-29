@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PayPalController;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return redirect('/send-email');
+    return Inertia::render('Welcome');
 });
 
 // Email routes

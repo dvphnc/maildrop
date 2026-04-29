@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailMail;
-
+    use Inertia\Inertia;
 class EmailController extends Controller
 {
-    public function index()
-    {
-        return view('send-email');
-    }
+
+
+public function index()
+{
+    return Inertia::render('SendEmail');
+}
 
     public function send(Request $request)
 {
