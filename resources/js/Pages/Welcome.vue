@@ -15,6 +15,7 @@
         <li><a href="#how">How it works</a></li>
         <li><a href="#features">Features</a></li>
         <li><a href="#pricing">Pricing</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
         <li><a href="/send-email" class="nav-cta">Start Sending</a></li>
       </ul>
     </nav>
@@ -225,10 +226,17 @@ const plans = [
 ]
 
 onMounted(() => {
-  // Custom cursor
+  // Cursor
   let mx = 0, my = 0, rx = 0, ry = 0
+  let cursorVisible = false
+
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY
+    if (!cursorVisible) {
+      cursorVisible = true
+      if (cursor.value) cursor.value.style.opacity = '1'
+      if (cursorRing.value) cursorRing.value.style.opacity = '1'
+    }
     if (cursor.value) {
       cursor.value.style.left = mx + 'px'
       cursor.value.style.top = my + 'px'
@@ -236,8 +244,8 @@ onMounted(() => {
   })
 
   function animateRing() {
-    rx += (mx - rx) * 0.12
-    ry += (my - ry) * 0.12
+    rx += (mx - rx) * 0.10
+    ry += (my - ry) * 0.10
     if (cursorRing.value) {
       cursorRing.value.style.left = rx + 'px'
       cursorRing.value.style.top = ry + 'px'
@@ -248,17 +256,64 @@ onMounted(() => {
 
   document.querySelectorAll('a, button').forEach(el => {
     el.addEventListener('mouseenter', () => {
-      if (cursor.value) cursor.value.style.transform = 'translate(-50%, -50%) scale(2)'
-      if (cursorRing.value) { cursorRing.value.style.width = '50px'; cursorRing.value.style.height = '50px' }
+      if (cursor.value) {
+        cursor.value.style.transform = 'translate(-50%, -50%) scale(0)'
+        cursor.value.style.opacity = '0'
+      }
+      if (cursorRing.value) {
+        cursorRing.value.style.width = '56px'
+        cursorRing.value.style.height = '56px'
+        cursorRing.value.style.borderColor = 'rgba(29,185,84,0.8)'
+        cursorRing.value.style.background = 'rgba(29,185,84,0.08)'
+      }
     })
     el.addEventListener('mouseleave', () => {
-      if (cursor.value) cursor.value.style.transform = 'translate(-50%, -50%) scale(1)'
-      if (cursorRing.value) { cursorRing.value.style.width = '36px'; cursorRing.value.style.height = '36px' }
+      if (cursor.value) {
+        cursor.value.style.transform = 'translate(-50%, -50%) scale(1)'
+        cursor.value.style.opacity = '1'
+      }
+      if (cursorRing.value) {
+        cursorRing.value.style.width = '36px'
+        cursorRing.value.style.height = '36px'
+        cursorRing.value.style.borderColor = 'rgba(29,185,84,0.4)'
+        cursorRing.value.style.background = 'transparent'
+      }
     })
   })
 
-  // Scroll reveal
-  setTimeout(() => { revealed.value = true }, 300)
+  // Staggered scroll reveal
+  const revealEls = document.querySelectorAll('.reveal, .stat-item')
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const children = entry.target.querySelectorAll('.step, .feature, .pricing-card, .stat-item')
+        if (children.length) {
+          children.forEach((child, i) => {
+            setTimeout(() => {
+              child.style.opacity = '1'
+              child.style.transform = 'translateY(0)'
+            }, i * 120)
+          })
+        }
+        setTimeout(() => { entry.target.classList.add('visible') }, 80)
+        observer.unobserve(entry.target)
+      }
+    })
+  }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' })
+
+  revealEls.forEach(el => observer.observe(el))
+
+  // Nav shrink on scroll
+  const nav = document.querySelector('nav')
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.padding = '1rem 4rem'
+      nav.style.background = 'rgba(10,10,10,0.95)'
+    } else {
+      nav.style.padding = '1.5rem 4rem'
+      nav.style.background = 'rgba(10,10,10,0.8)'
+    }
+  }, { passive: true })
 })
 </script>
 
@@ -271,28 +326,55 @@ onMounted(() => {
   font-family: 'DM Sans', sans-serif;
   overflow-x: hidden;
   cursor: none;
+  border: none;
+  outline: none;
 }
 
+:global(html, body) {
+  margin: 0;
+  padding: 0;
+  background: #0a0a0a;
+  border: none;
+  outline: none;
+  scrollbar-color: #222 #0a0a0a;
+  scrollbar-width: thin;
+}
+
+:global(::-webkit-scrollbar) { width: 6px; }
+:global(::-webkit-scrollbar-track) { background: #0a0a0a; }
+:global(::-webkit-scrollbar-thumb) { background: #222; border-radius: 3px; }
+:global(::-webkit-scrollbar-thumb:hover) { background: #333; }
+
 .cursor {
-  width: 10px; height: 10px;
+  width: 8px; height: 8px;
   background: #1DB954;
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: transform 0.15s ease;
+  opacity: 0;
+  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+              opacity 0.3s ease;
+  will-change: left, top, transform;
 }
 
 .cursor-ring {
   width: 36px; height: 36px;
-  border: 1px solid rgba(29,185,84,0.4);
+  border: 1.5px solid rgba(29,185,84,0.4);
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s;
+  opacity: 0;
+  background: transparent;
+  transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+              height 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 0.2s ease,
+              background 0.2s ease,
+              opacity 0.3s ease;
+  will-change: left, top;
 }
 
 nav {
@@ -303,6 +385,7 @@ nav {
   border-bottom: 1px solid rgba(255,255,255,0.04);
   backdrop-filter: blur(20px);
   background: rgba(10,10,10,0.8);
+  transition: padding 0.4s cubic-bezier(0.23,1,0.32,1), background 0.4s ease;
 }
 
 .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
@@ -493,7 +576,7 @@ nav {
 
 .section-sub { font-size: 1rem; color: #999; font-weight: 300; max-width: 480px; line-height: 1.8; margin-bottom: 4rem; }
 
-.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s cubic-bezier(0.23,1,0.32,1), transform 0.9s cubic-bezier(0.23,1,0.32,1); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 .steps {
@@ -502,7 +585,7 @@ nav {
   border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden;
 }
 
-.step { background: #111; padding: 3rem 2.5rem; transition: background 0.3s; }
+.step { background: #111; padding: 3rem 2.5rem; transition: background 0.3s, opacity 0.6s cubic-bezier(0.23,1,0.32,1), transform 0.6s cubic-bezier(0.23,1,0.32,1); opacity: 0; transform: translateY(24px); }
 .step:hover { background: #1a1a1a; }
 .step-num { font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.04); line-height: 1; margin-bottom: 1.5rem; letter-spacing: -2px; }
 
@@ -523,7 +606,7 @@ nav {
   border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden;
 }
 
-.feature { background: #111; padding: 3rem; transition: background 0.3s; position: relative; overflow: hidden; }
+.feature { background: #111; padding: 3rem; transition: background 0.3s, opacity 0.6s cubic-bezier(0.23,1,0.32,1), transform 0.6s cubic-bezier(0.23,1,0.32,1); position: relative; overflow: hidden; opacity: 0; transform: translateY(24px); }
 .feature:hover { background: #1a1a1a; }
 
 .feature-icon {
@@ -541,7 +624,8 @@ nav {
 .pricing-card {
   background: #111; border: 1px solid rgba(255,255,255,0.06);
   border-radius: 20px; padding: 2.5rem 2rem; position: relative;
-  transition: border-color 0.3s, transform 0.3s;
+  opacity: 0; transform: translateY(24px);
+  transition: border-color 0.3s, transform 0.6s cubic-bezier(0.23,1,0.32,1), opacity 0.6s cubic-bezier(0.23,1,0.32,1);
 }
 .pricing-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.12); }
 .pricing-card.featured { border-color: rgba(29,185,84,0.4); background: linear-gradient(135deg, rgba(29,185,84,0.06) 0%, #111 60%); }
@@ -587,7 +671,7 @@ nav {
 
 .cta-strip {
   margin: 0 4rem 8rem; background: #111;
-  border: 1px solid rgba(255,255,255,0.06); border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.03); border-radius: 24px;
   padding: 5rem 4rem; text-align: center; position: relative; overflow: hidden;
 }
 .cta-strip::before {

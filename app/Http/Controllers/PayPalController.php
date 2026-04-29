@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailMail;
+use App\Models\EmailLog;
 
 class PayPalController extends Controller
 {
@@ -41,6 +42,7 @@ class PayPalController extends Controller
         }
 
         $amount = number_format((float) $request->amount, 2, '.', '');
+        session(['paypal_amount' => $amount]);
 
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
@@ -93,16 +95,25 @@ class PayPalController extends Controller
             // Send the email with attachment if exists
             Mail::to($data['email'])->send(new SendEmailMail($data, $filePath, $originalName));
 
+            // Save to database
+            EmailLog::create([
+                'sender_name'      => $data['name'],
+                'recipient_email'  => $data['email'],
+                'message'          => $data['message'],
+                'attachment'       => $originalName,
+                'amount'           => session('paypal_amount', 10),
+                'status'           => 'sent',
+            ]);
+
             // Delete temp file after sending
             if ($filePath && file_exists($filePath)) {
                 unlink($filePath);
             }
 
             // Clear session
-            session()->forget(['mail_name', 'mail_email', 'mail_message', 'mail_file', 'mail_file_name']);
+            session()->forget(['mail_name', 'mail_email', 'mail_message', 'mail_file', 'mail_file_name', 'paypal_amount']);
 
-            return redirect('/send-email')
-                ->with('success', '✅ Payment successful! Your email has been sent.');
+            return redirect('/success');
         }
 
         return redirect('/send-email')->with('error', '❌ Payment could not be completed. Please try again.');
