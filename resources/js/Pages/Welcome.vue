@@ -26,7 +26,7 @@
       <div class="hero-grid"></div>
       <div class="hero-badge">Now in Sandbox Mode</div>
       <h1>Pay once.<br><em>Send forever.</em></h1>
-      <p class="hero-sub">MailDrop is the simplest way to send emails with attachments — secured by PayPal. No subscriptions. No accounts. Just pay and send.</p>
+      <p class="hero-sub">MailDrop is the simplest way to send emails with attachments — secured by PayPal. <br>No subscriptions. No accounts. <br>Just pay and send.</p>
       <div class="hero-actions">
         <a href="/send-email" class="btn-primary">
           Start Sending
@@ -244,8 +244,8 @@ onMounted(() => {
   })
 
   function animateRing() {
-    rx += (mx - rx) * 0.10
-    ry += (my - ry) * 0.10
+    rx += (mx - rx) * 0.50
+    ry += (my - ry) * 0.50
     if (cursorRing.value) {
       cursorRing.value.style.left = rx + 'px'
       cursorRing.value.style.top = ry + 'px'
@@ -412,7 +412,7 @@ nav {
 .hero {
   min-height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 8rem 2rem 4rem;
+  text-align: center; padding: 6rem 2rem 6rem;
   position: relative; overflow: hidden;
 }
 
@@ -488,10 +488,12 @@ nav {
 .btn-ghost:hover { color: #fff; }
 
 .hero-scroll {
-  position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: 3rem;
+  left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
   color: #666; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
   animation: fadeUp 1s 0.6s ease both;
+  white-space: nowrap;
 }
 
 .scroll-line {
@@ -693,4 +695,100 @@ footer {
 .footer-links { display: flex; gap: 2rem; list-style: none; }
 .footer-links a { font-size: 0.78rem; color: #666; text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: #fff; }
+
+/* MOBILE */
+@media (max-width: 1024px) {
+  /* Hide cursor on touch devices */
+  .cursor, .cursor-ring { display: none !important; }
+
+  nav {
+    padding: 1rem 1.25rem;
+    flex-wrap: nowrap;
+  }
+
+  /* Hide all nav links except Start Sending on mobile */
+  .nav-links li { display: none; }
+  .nav-links li:last-child { display: block; }
+
+  .nav-cta {
+    padding: 0.45rem 0.9rem !important;
+    font-size: 0.75rem !important;
+    white-space: nowrap;
+  }
+
+  .hero { padding: 5rem 1.25rem 3rem; min-height: auto; }
+  .hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); letter-spacing: -2px; }
+  .hero-sub { font-size: 0.9rem; padding: 0 0.5rem; }
+  .hero-actions { flex-direction: column; width: 100%; gap: 0.75rem; }
+  .btn-primary { width: 100%; justify-content: center; padding: 0.9rem 1.5rem; }
+  .btn-ghost { width: 100%; justify-content: center; }
+  .hero-scroll { display: none; }
+
+  .marquee-wrap { display: none; }
+
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1.25rem; gap: 0;
+  }
+  .stat-item {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 0.85rem;
+  }
+  .stat-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.05); }
+  .stat-item:nth-last-child(-n+2) { border-bottom: none; }
+  .stat-number { font-size: 1.8rem; }
+
+  .section { padding: 3.5rem 1.25rem; }
+  .section h2 { font-size: clamp(1.7rem, 7vw, 2.5rem); letter-spacing: -0.5px; }
+  .section-sub { font-size: 0.875rem; }
+
+  .steps { grid-template-columns: 1fr; border-radius: 14px; }
+  .step { padding: 2rem 1.5rem; }
+
+  .features-grid { grid-template-columns: 1fr; border-radius: 14px; }
+  .feature { padding: 2rem 1.5rem; }
+
+  .pricing-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .pricing-card { padding: 2rem 1.5rem; }
+
+  .cta-strip { margin: 0 1.25rem 4rem; padding: 2.5rem 1.5rem; }
+  .cta-strip h2 { font-size: clamp(1.5rem, 7vw, 2.5rem); }
+  .cta-strip p { font-size: 0.875rem; }
+
+  footer {
+    flex-direction: column; gap: 1.25rem;
+    padding: 2rem 1.25rem; text-align: center;
+  }
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+}
+
+/* iPad */
+@media (min-width: 769px) and (max-width: 1024px) {
+  nav { padding: 1.25rem 2rem; }
+  .nav-links { gap: 1.5rem; }
+
+  .hero { padding: 6rem 2rem 4rem; }
+  .hero h1 { font-size: clamp(3rem, 8vw, 5rem); }
+
+  .stats-bar { padding: 1.5rem 2rem; }
+
+  .section { padding: 5rem 2rem; }
+
+  .steps { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+  .cta-strip { margin: 0 2rem 5rem; }
+
+  footer { padding: 2rem; }
+}
+
+@media (max-width: 430px) {
+  nav { padding: 0.85rem 1rem; }
+  .nav-logo span { font-size: 0.9rem; }
+  .hero h1 { font-size: clamp(2.2rem, 11vw, 3rem); }
+  .hero-badge { font-size: 0.65rem; padding: 0.35rem 0.85rem; }
+  .stat-number { font-size: 1.6rem; }
+}
 </style>

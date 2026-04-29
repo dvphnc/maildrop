@@ -365,4 +365,94 @@ td { padding: 1rem 1.25rem; font-size: 0.82rem; vertical-align: middle; }
   width: 5px; height: 5px; border-radius: 50%;
   background: currentColor;
 }
+
+/* TABLET - iPad Air */
+@media (min-width: 769px) and (max-width: 1024px) {
+  nav { padding: 1rem 1.5rem; }
+  .main { padding: 5.5rem 1.5rem 3rem; }
+
+  .stats-row { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+
+  .table-header { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+  .search-wrap { width: 100%; }
+  .search-wrap input { width: 100%; }
+
+  /* Hide less important columns on iPad */
+  th:nth-child(4), td:nth-child(4),
+  th:nth-child(5), td:nth-child(5),
+  th:nth-child(8), td:nth-child(8) { display: none; }
+
+  .table-wrap { overflow-x: auto; }
+  th, td { padding: 0.85rem 1rem; font-size: 0.8rem; }
+}
+
+/* MOBILE - iPhone & Samsung */
+@media (max-width: 768px) {
+  nav { padding: 0.85rem 1rem; }
+  .nav-logo span { font-size: 0.9rem; }
+  .nav-cta { padding: 0.45rem 0.85rem !important; font-size: 0.75rem !important; }
+
+  .main { padding: 5rem 1rem 3rem; overflow-x: hidden; }
+
+  .page-header { flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+  h1 { font-size: 1.75rem; letter-spacing: -0.5px; }
+  .page-header p { font-size: 0.8rem; }
+
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .stat-card {
+    padding: 0.875rem;
+    gap: 0.6rem;
+    border-radius: 12px;
+  }
+
+  .stat-icon { width: 36px; height: 36px; border-radius: 10px; }
+  .stat-icon svg { width: 16px; height: 16px; }
+  .stat-number { font-size: 1.2rem; }
+  .stat-label { font-size: 0.65rem; }
+
+  .table-card { border-radius: 14px; }
+
+  .table-header {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 1.25rem 1rem;
+  }
+
+  .table-header h2 { font-size: 0.95rem; }
+
+  .search-wrap { width: 100%; box-sizing: border-box; }
+  .search-wrap input { width: 100%; min-width: 0; }
+
+  .table-wrap { overflow-x: hidden; width: 100%; }
+
+  table { width: 100%; table-layout: fixed; }
+
+  /* Show only # Sender Amount on mobile */
+  th:nth-child(1), td:nth-child(1) { width: 30px; }
+  th:nth-child(2), td:nth-child(2) { width: auto; }
+  th:nth-child(6), td:nth-child(6) { width: 70px; }
+
+  th:nth-child(3), td:nth-child(3),
+  th:nth-child(4), td:nth-child(4),
+  th:nth-child(5), td:nth-child(5),
+  th:nth-child(7), td:nth-child(7),
+  th:nth-child(8), td:nth-child(8) { display: none; }
+
+  th, td { padding: 0.75rem 0.75rem; font-size: 0.78rem; }
+  .td-name { font-size: 0.82rem; }
+  .td-amount { font-size: 0.82rem; }
+}
+
+@media (max-width: 430px) {
+  .main { padding: 4.5rem 0.875rem 3rem; }
+  .stat-card { padding: 0.75rem; }
+  .stat-number { font-size: 1.1rem; }
+  h1 { font-size: 1.5rem; }
+}
 </style>

@@ -281,4 +281,13 @@ h1 em { font-style: normal; color: #1DB954; }
   font-size: 0.72rem; color: #1a1a1a;
   position: relative; z-index: 1;
 }
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .success-card { padding: 2rem 1.25rem; }
+  h1 { font-size: 1.8rem; }
+  .check-wrap { width: 70px; height: 70px; }
+  .actions { flex-direction: column; }
+  .btn-primary { width: 100%; justify-content: center; }
+}
 </style>

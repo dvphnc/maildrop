@@ -4,17 +4,14 @@
 
     <!-- TOP NAV -->
     <nav>
-  <a href="/" class="nav-logo">
-    <div class="logo-dot">
-      <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-    </div>
-    <span>MailDrop</span>
-  </a>
-  <div style="display:flex; gap:1.5rem; align-items:center;">
-    <a href="/dashboard" class="nav-back">Dashboard</a>
-    <a href="/" class="nav-back">← Back to home</a>
-  </div>
-</nav>
+      <a href="/" class="nav-logo">
+        <div class="logo-dot">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <span>MailDrop</span>
+      </a>
+      <a href="/" class="nav-back">← Back to home</a>
+    </nav>
 
     <!-- SPLIT LAYOUT -->
     <main class="split">
@@ -188,9 +185,12 @@
             <button type="button" class="preset-btn" @click="amount = 50">$50</button>
           </div>
 
-          <button type="button" class="paypal-btn" @click="submitPaypal">
-            <svg viewBox="0 0 24 24" fill="#003087"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
-            Pay with PayPal
+          <button type="button" class="paypal-btn" @click="submitPaypal" :disabled="isLoading">
+            <span v-if="isLoading" class="paypal-spinner"></span>
+            <template v-else>
+              <svg viewBox="0 0 24 24" fill="#003087"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+              Pay with PayPal
+            </template>
           </button>
         </form>
       </div>
@@ -218,6 +218,7 @@ const fileName = ref('')
 const fileSize = ref('')
 const isDragging = ref(false)
 const showModal = ref(false)
+const isLoading = ref(false)
 const fileInput = ref(null)
 const paypalForm = ref(null)
 const paypalFile = ref(null)
@@ -266,6 +267,7 @@ function openPaypal() {
 }
 
 function submitPaypal() {
+  isLoading.value = true
   const file = fileInput.value?.files[0]
   if (file && paypalFile.value) {
     const dt = new DataTransfer(); dt.items.add(file)
@@ -284,6 +286,9 @@ function submitPaypal() {
   font-family: 'DM Sans', sans-serif;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .bg-glow {
@@ -577,6 +582,89 @@ textarea { resize: none; min-height: 120px; line-height: 1.6; }
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease, transform 0.3s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; transform: translateY(-4px); }
 
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .wrapper { overflow-x: hidden; }
+
+  nav {
+    padding: 0.85rem 1.25rem;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+    padding-top: 58px;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .form-side {
+    padding: 1.5rem 1rem 2rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .form-header { margin-bottom: 1.25rem; }
+  .form-header h1 { font-size: 1.6rem; letter-spacing: -0.5px; }
+  .form-header p { font-size: 0.8rem; }
+
+  .form-card {
+    padding: 1.25rem;
+    width: 100%;
+    border-radius: 16px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    font-size: 0.875rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .dropzone { padding: 1rem; }
+  .dropzone-file-name { font-size: 0.75rem; }
+
+  .btn-send {
+    font-size: 0.875rem;
+    padding: 0.85rem;
+  }
+
+  .preview-side {
+    padding: 1.5rem 1rem 3rem;
+    background: #0a0a0a;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .preview-sticky { position: relative; top: 0; }
+
+  .email-preview { font-size: 0.85rem; }
+  .ep-header { padding: 1.25rem 1rem; }
+  .ep-body { padding: 1rem; }
+
+  .completeness { margin-top: 0.75rem; }
+
+  .modal {
+    padding: 1.5rem;
+    margin: 0 0.5rem;
+    width: calc(100% - 1rem);
+  }
+  .modal-title { font-size: 1rem; }
+  .preset-btns { gap: 0.3rem; }
+  .preset-btn { font-size: 0.72rem; padding: 0.4rem 0; }
+}
+
+@media (max-width: 430px) {
+  nav { padding: 0.85rem 1rem; }
+  .nav-logo span { font-size: 0.9rem; }
+  .form-side { padding: 1.25rem 0.875rem 2rem; }
+  .form-card { padding: 1rem; border-radius: 14px; }
+  .form-header h1 { font-size: 1.4rem; }
+  .preview-side { padding: 1.25rem 0.875rem 3rem; }
+}
+
 /* PAYPAL MODAL */
 .modal-overlay {
   display: none; position: fixed; inset: 0;
@@ -655,9 +743,22 @@ input[type="number"] {
   padding: 0.85rem; border: none; border-radius: 50px;
   cursor: pointer; display: flex; align-items: center;
   justify-content: center; gap: 0.5rem;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.2s, transform 0.1s, opacity 0.2s;
 }
-.paypal-btn:hover { background: #f0b429; }
-.paypal-btn:active { transform: scale(0.98); }
+.paypal-btn:hover:not(:disabled) { background: #f0b429; }
+.paypal-btn:active:not(:disabled) { transform: scale(0.98); }
+.paypal-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 .paypal-btn svg { width: 18px; height: 18px; }
+
+.paypal-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(0,48,135,0.3);
+  border-top-color: #003087;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 </style>
