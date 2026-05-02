@@ -266,6 +266,12 @@ function openPaypal() {
   showModal.value = true
 }
 
+function copyText(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => toast.success('Copied to clipboard!'))
+    .catch(() => toast.error('Failed to copy'))
+}
+
 function submitPaypal() {
   isLoading.value = true
   const file = fileInput.value?.files[0]
@@ -736,6 +742,51 @@ input[type="number"] {
   padding: 0.4rem 0; cursor: pointer; transition: all 0.2s;
 }
 .preset-btn:hover { border-color: #1DB954; color: #1DB954; }
+
+.sandbox-creds {
+  background: rgba(255,196,57,0.05);
+  border: 1px solid rgba(255,196,57,0.15);
+  border-radius: 10px;
+  padding: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.sandbox-creds-title {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: #FFC439; margin-bottom: 0.75rem;
+}
+
+.sandbox-creds-row {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+.sandbox-creds-row:last-child { margin-bottom: 0; }
+
+.creds-label {
+  font-size: 0.68rem; color: #555;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  width: 55px; flex-shrink: 0;
+  font-weight: 600;
+}
+
+.creds-value {
+  font-size: 0.72rem; color: #999;
+  flex: 1; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+.copy-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #666; border-radius: 6px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.65rem; font-weight: 600;
+  cursor: pointer; flex-shrink: 0;
+  transition: all 0.2s;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
 .paypal-btn {
   width: 100%; background: #FFC439; color: #003087;
