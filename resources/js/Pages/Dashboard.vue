@@ -101,6 +101,7 @@
                 <th>Amount</th>
                 <th>Status</th>
                 <th>Date</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -126,6 +127,13 @@
                   </span>
                 </td>
                 <td class="td-date">{{ log.created_at }}</td>
+                <td>
+                  <button class="delete-btn" @click="deleteLog(log.id)">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -147,14 +155,34 @@ const props = defineProps({
 
 const search = ref('')
 
+const logs = ref(props.logs)
+
 const filtered = computed(() => {
-  if (!search.value) return props.logs
+  if (!search.value) return logs.value
   const q = search.value.toLowerCase()
-  return props.logs.filter(l =>
+  return logs.value.filter(l =>
     l.sender_name.toLowerCase().includes(q) ||
     l.recipient_email.toLowerCase().includes(q)
   )
 })
+
+async function deleteLog(id) {
+  if (!confirm('Are you sure you want to delete this record?')) return
+  try {
+    const response = await fetch(`/dashboard/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        'Content-Type': 'application/json',
+      }
+    })
+    if (response.ok) {
+      logs.value = logs.value.filter(l => l.id !== id)
+    }
+  } catch (e) {
+    alert('Failed to delete. Please try again.')
+  }
+}
 </script>
 
 <style scoped>
@@ -364,6 +392,19 @@ td { padding: 1rem 1.25rem; font-size: 0.82rem; vertical-align: middle; }
 .status-dot {
   width: 5px; height: 5px; border-radius: 50%;
   background: currentColor;
+}
+
+.delete-btn {
+  background: rgba(255,80,80,0.08);
+  border: 1px solid rgba(255,80,80,0.15);
+  color: #ff6b6b; border-radius: 8px;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s;
+}
+.delete-btn:hover {
+  background: rgba(255,80,80,0.2);
+  border-color: rgba(255,80,80,0.4);
 }
 
 /* TABLET - iPad Air */

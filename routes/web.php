@@ -21,3 +21,4 @@ Route::get('/success', function () {
     return Inertia::render('Success');
 })->name('success');
 Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::delete('/dashboard/{id}', [DashboardController::class, 'destroy']);

@@ -7,6 +7,12 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
+    public function destroy($id)
+    {
+        EmailLog::findOrFail($id)->delete();
+        return response()->json(['success' => true]);
+    }
+
     public function index()
     {
         $logs = EmailLog::latest()->get()->map(function ($log) {
