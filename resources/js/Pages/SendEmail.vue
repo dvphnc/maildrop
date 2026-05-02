@@ -785,7 +785,7 @@ input[type="number"] {
 .creds-label {
   font-size: 0.68rem; color: #555;
   text-transform: uppercase; letter-spacing: 0.08em;
-  width: 55px; flex-shrink: 0;
+  width: 70px; flex-shrink: 0;
   font-weight: 600;
 }
 
@@ -793,6 +793,7 @@ input[type="number"] {
   font-size: 0.72rem; color: #999;
   flex: 1; white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .copy-btn {
