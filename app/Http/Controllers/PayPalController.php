@@ -21,10 +21,10 @@ class PayPalController extends Controller
 
         // Save form data to session
         session([
-            'mail_name'    => $request->name,
-            'mail_email'   => $request->email,
-            'mail_message' => $request->message,
-            'mail_file'    => null,
+            'mail_name'      => $request->name,
+            'mail_email'     => $request->email,
+            'mail_message'   => $request->message,
+            'mail_file'      => null,
             'mail_file_name' => null,
         ]);
 
@@ -44,6 +44,9 @@ class PayPalController extends Controller
         $amount = number_format((float) $request->amount, 2, '.', '');
         session(['paypal_amount' => $amount]);
 
+        // Save session explicitly before redirect
+        session()->save();
+
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
@@ -54,7 +57,7 @@ class PayPalController extends Controller
                 [
                     "amount" => [
                         "currency_code" => "USD",
-                        "value" => $amount,
+                        "value"         => $amount,
                     ]
                 ]
             ],
@@ -75,11 +78,18 @@ class PayPalController extends Controller
 
     public function success(Request $request)
     {
+        // PayPal sends token as query param
+        $token = $request->query('token');
+
+        if (!$token) {
+            return redirect('/send-email')->with('error', '❌ Invalid payment token.');
+        }
+
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
 
-        $response = $provider->capturePaymentOrder($request->token);
+        $response = $provider->capturePaymentOrder($token);
 
         if (isset($response['status']) && $response['status'] === 'COMPLETED') {
 
@@ -92,20 +102,20 @@ class PayPalController extends Controller
             $filePath     = session('mail_file');
             $originalName = session('mail_file_name');
 
-            // Send the email with attachment if exists
+            // Send the email
             Mail::to($data['email'])->send(new SendEmailMail($data, $filePath, $originalName));
 
             // Save to database
             EmailLog::create([
-                'sender_name'      => $data['name'],
-                'recipient_email'  => $data['email'],
-                'message'          => $data['message'],
-                'attachment'       => $originalName,
-                'amount'           => session('paypal_amount', 10),
-                'status'           => 'sent',
+                'sender_name'     => $data['name'],
+                'recipient_email' => $data['email'],
+                'message'         => $data['message'],
+                'attachment'      => $originalName,
+                'amount'          => session('paypal_amount', 10),
+                'status'          => 'sent',
             ]);
 
-            // Delete temp file after sending
+            // Delete temp file
             if ($filePath && file_exists($filePath)) {
                 unlink($filePath);
             }
