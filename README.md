@@ -12,7 +12,9 @@
 
 </div>
 
+
 ---
+
 
 ## What is MailDrop?
 
@@ -39,13 +41,13 @@ A split-layout form with a live email preview on the right side. As you type you
 <details>
 <summary>&nbsp;<b>PayPal payment flow</b></summary>
 <br/>
-Clicking "Send Email" opens a modal with an adjustable amount input, preset buttons ($5, $10, $25, $50), a sandbox test account shown right inside the modal, and a loading spinner on the Pay button after clicking. After payment is confirmed, the email is sent automatically — no second step.
+Clicking "Send Email" opens a modal with an adjustable amount input, preset buttons ($5, $10, $25, $50), and sandbox test credentials shown right inside the modal. After payment is confirmed, the email sends automatically — no second step needed.
 </details>
 
 <details>
 <summary>&nbsp;<b>Drag & drop attachments</b></summary>
 <br/>
-Drop a file onto the dropzone or click to browse. The zone highlights green when a file is dragged over, then shows the filename and size after selection — with a remove button to clear it. Files are saved temporarily on the server, sent with the email, then deleted immediately.
+Drop a file onto the dropzone or click to browse. The zone highlights green when a file is dragged over, then shows the filename and size after selection — with a remove button to clear it. Files are saved temporarily on the server, sent with the email, then deleted immediately after.
 </details>
 
 <details>
@@ -57,7 +59,7 @@ A searchable table of every email sent through MailDrop — sender, recipient, m
 <details>
 <summary>&nbsp;<b>The landing page</b></summary>
 <br/>
-A full marketing page with a custom green cursor with a trailing ring, scroll-reveal animations on every section, a marquee ticker, a stats bar, a how-it-works grid, a features section, and three pricing cards. Everything animates in with staggered cubic-bezier easing as you scroll down.
+A full marketing page with a custom green cursor with a trailing ring, scroll-reveal animations on every section, a marquee ticker, a stats bar, a how-it-works grid, a features section, and three pricing cards. Everything animates in with staggered cubic-bezier easing as you scroll.
 </details>
 
 ---
@@ -100,28 +102,6 @@ php artisan serve
 ```
 
 Open `http://localhost:8000` and you're in.
-
----
-
-## Environment Variables
-
-```env
-APP_NAME=MailDrop
-APP_ENV=local
-APP_URL=http://localhost:8000
-
-DB_CONNECTION=sqlite
-
-MAIL_MAILER=resend
-RESEND_API_KEY=your_resend_api_key
-MAIL_FROM_ADDRESS=onboarding@resend.dev
-MAIL_FROM_NAME=MailDrop
-
-PAYPAL_MODE=sandbox
-PAYPAL_SANDBOX_CLIENT_ID=your_client_id
-PAYPAL_SANDBOX_CLIENT_SECRET=your_secret
-PAYPAL_CURRENCY=USD
-```
 
 ---
 
@@ -179,7 +159,7 @@ No real money involved. The credentials are also shown inside the PayPal modal o
 
 <div align="center">
 
-![wave](public/readme-wave.svg)
+![MailDrop](public/readme-wave.svg)
 
 <img src="https://github.com/dvphnc.png" width="68" style="border-radius:50%" alt="Joana Daphne Sy"/>
 
@@ -192,10 +172,5 @@ No real money involved. The credentials are also shown inside the PayPal modal o
 <br/>
 
 [![GitHub](https://img.shields.io/badge/github-dvphnc-1DB954?style=flat-square&logo=github&logoColor=white)](https://github.com/dvphnc)
-
-<br/><br/>
-
-<sub>© 2026 MailDrop by Joana Daphne Sy.
-<br/> All Rights Reserved.</sub>
 
 </div>
