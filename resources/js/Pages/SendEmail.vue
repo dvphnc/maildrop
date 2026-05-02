@@ -185,6 +185,24 @@
             <button type="button" class="preset-btn" @click="amount = 50">$50</button>
           </div>
 
+          <!-- Sandbox Test Credentials -->
+          <div class="sandbox-creds">
+            <div class="sandbox-creds-title">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Sandbox Test Account
+            </div>
+            <div class="sandbox-creds-row">
+              <span class="creds-label">Email</span>
+              <span class="creds-value">maildrop.buyer@personal.example.com</span>
+              <button type="button" class="copy-btn" @click="copyText('maildrop.buyer@personal.example.com')">Copy</button>
+            </div>
+            <div class="sandbox-creds-row">
+              <span class="creds-label">Password</span>
+              <span class="creds-value">MailDrop@2026</span>
+              <button type="button" class="copy-btn" @click="copyText('MailDrop@2026')">Copy</button>
+            </div>
+          </div>
+
           <button type="button" class="paypal-btn" @click="submitPaypal" :disabled="isLoading">
             <span v-if="isLoading" class="paypal-spinner"></span>
             <template v-else>
