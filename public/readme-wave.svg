@@ -1,0 +1,16 @@
+<svg width="800" height="60" viewBox="0 0 800 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1DB954;stop-opacity:0"/>
+      <stop offset="50%" style="stop-color:#1DB954;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#1DB954;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0 40 Q100 20 200 40 Q300 60 400 40 Q500 20 600 40 Q700 60 800 40" fill="none" stroke="url(#wave)" stroke-width="1.5">
+    <animate attributeName="d" 
+      values="M0 40 Q100 20 200 40 Q300 60 400 40 Q500 20 600 40 Q700 60 800 40;
+              M0 40 Q100 60 200 40 Q300 20 400 40 Q500 60 600 40 Q700 20 800 40;
+              M0 40 Q100 20 200 40 Q300 60 400 40 Q500 20 600 40 Q700 60 800 40"
+      dur="4s" repeatCount="indefinite"/>
+  </path>
+</svg>
