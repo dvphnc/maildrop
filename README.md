@@ -1,58 +1,252 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<br/>
 
-## About Laravel
+# ✉️ MailDrop
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Pay. Send. Done.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+*A pay-per-send email delivery web app — secured by PayPal, built with Laravel & Vue 3.*
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<br/>
 
-## Learning Laravel
+[![Live Demo](https://img.shields.io/badge/live-demo-1DB954?style=flat-square&logo=render&logoColor=white)](https://maildrop-620d.onrender.com)
+[![GitHub](https://img.shields.io/badge/github-dvphnc-181818?style=flat-square&logo=github&logoColor=white)](https://github.com/dvphnc)
+[![Made by](https://img.shields.io/badge/made%20by-Joana%20Daphne%20Sy-1DB954?style=flat-square)](https://github.com/dvphnc)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+</div>
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## What is MailDrop?
 
-## Agentic Development
+MailDrop is a pay-per-send email delivery platform built for simplicity. No accounts. No subscriptions. Just fill a form, pay with PayPal, and your email lands in seconds.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+> You don't need a full email marketing suite to send one meaningful message. MailDrop gets it there — with proof of payment, file attachment support, and a beautiful dark interface that makes the whole thing feel intentional.
 
-```bash
-composer require laravel/boost --dev
+This started as a school activity — a PayPal integration exercise. It turned into something I'd actually want to use and show.
 
-php artisan boost:install
+---
+
+## What I Built
+
+A full-stack Laravel + Vue 3 application with Inertia.js, PayPal Sandbox API integration, and real email delivery via Resend.
+
+<details>
+<summary>▶ The send experience</summary>
+A split-layout form with a live email preview on the right. As you type, the preview updates in real time — showing exactly how your email will look to the recipient before you pay.
+</details>
+
+<details>
+<summary>▶ PayPal payment flow</summary>
+Clicking "Send Email" opens a modal with adjustable amount, preset buttons ($5, $10, $25, $50), and sandbox test credentials built right in for demo purposes.
+</details>
+
+<details>
+<summary>▶ Drag & drop attachments</summary>
+Drop a file or click to browse. The dropzone shows file name and size after selection, with a remove button. Files are saved temporarily, sent, then deleted from the server.
+</details>
+
+<details>
+<summary>▶ Email history dashboard</summary>
+A searchable table of all sent emails — recipient, message preview, attachment, amount paid, status, and date. Each row has a delete button.
+</details>
+
+<details>
+<summary>▶ The landing page</summary>
+A full marketing page with a custom cursor, scroll-reveal animations, marquee ticker, stats bar, how-it-works section, features grid, and pricing cards.
+</details>
+
+---
+
+## Built With
+
+```
+Laravel 11        Backend framework, routing, mail
+Vue 3             Frontend components
+Inertia.js        SPA without the API — connects Laravel to Vue
+PayPal SDK        Sandbox payment processing
+Resend API        Email delivery (bypasses SMTP port blocks)
+Vite              Asset bundling
+Docker            Containerized deployment
+Render            Hosting
+SQLite            Database
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Run It Locally
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Prerequisites
 
-## Code of Conduct
+```
+PHP 8.2+
+Composer
+Node.js v18+
+npm
+Laravel
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Installation
 
-## Security Vulnerabilities
+```bash
+# Clone the repository
+git clone https://github.com/dvphnc/maildrop.git
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Navigate into the project
+cd maildrop
 
-## License
+# Install PHP dependencies
+composer install
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Install Node dependencies
+npm install
+
+# Copy environment file
+cp .env.example .env
+
+# Generate app key
+php artisan key:generate
+
+# Run migrations
+php artisan migrate
+
+# Start Vite dev server
+npm run dev
+```
+
+Open a second terminal and run:
+
+```bash
+php artisan serve
+```
+
+Visit `http://localhost:8000` and you're in.
+
+---
+
+## Environment Variables
+
+Add these to your `.env`:
+
+```env
+APP_NAME=MailDrop
+APP_ENV=local
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=sqlite
+
+MAIL_MAILER=resend
+RESEND_API_KEY=your_resend_api_key
+MAIL_FROM_ADDRESS=onboarding@resend.dev
+MAIL_FROM_NAME=MailDrop
+
+PAYPAL_MODE=sandbox
+PAYPAL_SANDBOX_CLIENT_ID=your_client_id
+PAYPAL_SANDBOX_CLIENT_SECRET=your_secret
+PAYPAL_CURRENCY=USD
+```
+
+---
+
+## How It's Organized
+
+```
+maildrop/
+│
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── EmailController.php       — handles email form & sending
+│   │   ├── PayPalController.php      — PayPal order creation & capture
+│   │   └── DashboardController.php   — email log CRUD
+│   ├── Mail/
+│   │   └── SendEmailMail.php         — mailable with attachment support
+│   ├── Models/
+│   │   └── EmailLog.php              — sent email record model
+│   └── Providers/
+│       └── AppServiceProvider.php    — forces HTTPS in production
+│
+├── resources/
+│   ├── js/
+│   │   ├── Pages/
+│   │   │   ├── Welcome.vue           — landing page with animations
+│   │   │   ├── SendEmail.vue         — split layout form + live preview
+│   │   │   ├── Dashboard.vue         — email history with search & delete
+│   │   │   └── Success.vue           — animated success page
+│   │   └── app.js                    — Inertia + Vue + Toast setup
+│   └── views/
+│       ├── app.blade.php             — Inertia root layout
+│       └── emails/
+│           └── sendmail.blade.php    — HTML email template
+│
+├── routes/
+│   └── web.php                       — all application routes
+│
+├── database/
+│   └── migrations/                   — SQLite schema
+│
+├── public/
+│   └── build/                        — compiled Vite assets
+│
+└── Dockerfile                        — Docker config for Render deployment
+```
+
+---
+
+## Deployment
+
+MailDrop is deployed on **Render** using Docker.
+
+```bash
+# Build assets before deploying
+npm run build
+
+# Push to GitHub — Render auto-deploys
+git add .
+git commit -m "your message"
+git push
+```
+
+The `Dockerfile` handles PHP, Apache, Composer, Node, and migrations automatically on each deploy.
+
+---
+
+## Testing Payments
+
+MailDrop runs in **PayPal Sandbox mode**. Use these credentials on the checkout page:
+
+```
+Email:    maildrop.buyer@personal.example.com
+Password: MailDrop@2026
+```
+
+No real money is involved. The credentials are also shown inside the PayPal modal on the app.
+
+---
+
+## Author
+
+<div align="center">
+
+<img src="https://github.com/dvphnc.png" width="72" style="border-radius:50%" alt="Joana Daphne Sy"/>
+
+<br/><br/>
+
+**Joana Daphne Sy**
+
+Developer · Designer · Builder of things
+
+<br/>
+
+[![GitHub](https://img.shields.io/badge/GitHub-dvphnc-1DB954?style=flat-square&logo=github&logoColor=white)](https://github.com/dvphnc)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-maildrop--620d.onrender.com-181818?style=flat-square&logo=render&logoColor=white)](https://maildrop-620d.onrender.com)
+
+</div>
+
+---
+
+<div align="center">
+
+<sub>MailDrop &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Built with Laravel, Vue 3 & PayPal</sub>
+
+</div>
