@@ -62,8 +62,8 @@ class PayPalController extends Controller
                 ]
             ],
             "application_context" => [
-                "return_url" => route('paypal.success'),
-                "cancel_url" => route('paypal.cancel'),
+                "return_url" => config('app.url') . '/paypal/success',
+                "cancel_url" => config('app.url') . '/paypal/cancel',
             ]
         ]);
 
