@@ -142,7 +142,7 @@ maildrop/
 └── Dockerfile                        Docker config for Render
 ```
 
-![divider](public/readme-divider.svg)
+---
 
 ## Testing Payments
 
