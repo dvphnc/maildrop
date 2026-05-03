@@ -155,22 +155,17 @@ Password: MailDrop@2026
 
 No real money involved. The credentials are also shown inside the PayPal modal on the live app.
 
-![divider](public/readme-divider.svg)
+
 
 <div align="center">
 
 ![MailDrop](public/readme-wave.svg)
 
-<img src="https://github.com/dvphnc.png" width="68" style="border-radius:50%" alt="Joana Daphne Sy"/>
+<div align="center">
 
-<br/><br/>
+![wave](public/readme-wave.svg)
 
-**Joana Daphne Sy**
-
-<sub>Developer &nbsp;·&nbsp; Designer &nbsp;·&nbsp; Builder of things</sub>
-
-<br/>
-
-[![GitHub](https://img.shields.io/badge/github-dvphnc-1DB954?style=flat-square&logo=github&logoColor=white)](https://github.com/dvphnc)
+<sub>© 2026 MailDrop by Joana Daphne Sy.
+<br> All Rights Reserved.</sub>
 
 </div>
