@@ -155,12 +155,6 @@ Password: MailDrop@2026
 
 No real money involved. The credentials are also shown inside the PayPal modal on the live app.
 
-
-
-<div align="center">
-
-![MailDrop](public/readme-wave.svg)
-
 <div align="center">
 
 ![wave](public/readme-wave.svg)
